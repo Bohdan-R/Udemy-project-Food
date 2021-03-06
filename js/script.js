@@ -8,7 +8,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     function hideTabContent() {
         tabsContentRef.forEach(item => {
-        /* item.style.display = 'none'; */
+            /* item.style.display = 'none'; */
             item.classList.add('hide');
             item.classList.remove('show', 'fade');
         });
@@ -19,7 +19,7 @@ window.addEventListener('DOMContentLoaded', () => {
     };
 
     function showTabContent(i = 0) {
-    /* tabsContentRef[i].style.display = 'block'; */
+        /* tabsContentRef[i].style.display = 'block'; */
         tabsContentRef[i].classList.add('show', 'fade');
         tabsContentRef[i].classList.remove('hide');
         tabsRef[i].classList.add('tabheader__item_active');
@@ -95,5 +95,42 @@ window.addEventListener('DOMContentLoaded', () => {
         };
     };
 
-    setClock('.timer', deadline)
+    setClock('.timer', deadline);
+
+    // Modal
+
+    const modalOpenBtnsRef = document.querySelectorAll('button[data-modal]');
+    const modalRef = document.querySelector('.modal');
+    const modalCloseBtnRef = document.querySelector('[data-close]');
+
+    modalOpenBtnsRef.forEach(btn => {
+        btn.addEventListener('click', () => {
+            modalRef.classList.add('show');
+            modalRef.classList.remove('hide');
+            /* modalRef.classList.toggle('show'); */
+            document.body.style.overflow = 'hidden';
+        });
+    });
+
+    modalCloseBtnRef.addEventListener('click', closeModal);
+
+    modalRef.addEventListener('click', (e) => {
+        if (e.target === e.currentTarget) {
+            closeModal();
+        };
+    });
+
+    window.addEventListener('keydown', (e) => {
+        if (e.code === 'Escape' && modalRef.classList.contains('show')) {
+            closeModal();
+        };
+        console.log(e);
+    });
+
+    function closeModal() {
+        modalRef.classList.add('hide');
+        modalRef.classList.remove('show');
+        /* modalRef.classList.toggle('show'); */
+        document.body.style.overflow = '';
+    };
 })
